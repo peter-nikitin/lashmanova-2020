@@ -1,0 +1,18 @@
+.about {
+  display: flex;
+  &__photo {
+    flex-basis: 33%;
+    padding-right: 15px;
+    img {
+      width: 100%;
+    }
+  }
+  &__text {
+    flex-basis: 33%;
+    padding-right: 15px;
+    p {
+      text-transform: initial;
+      font-size: 14px;
+    }
+  }
+}
