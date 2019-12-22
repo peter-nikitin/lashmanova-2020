@@ -36,11 +36,6 @@ export const makeGallery = () => {
   const pauseBtn = document.createElement(`div`);
   pauseBtn.classList.add(`button_pause`, `caption__button`, `button`); 
   pauseBtn.id = `pause` 
-  if (gellary) {
-    
-    buttonsWrapper.appendChild(playBtn);
-    buttonsWrapper.appendChild(pauseBtn);
-  }
 
   
 // draw pagination
@@ -100,11 +95,16 @@ const timer = {
   }
 
   // start auto switching
-  gelleryInterval = setInterval(showNextImage, INTERVAL);
-  play.classList.add(`caption__button_current`);
-  captionImageName.innerText = gelleryItems[0].alt;
-  gelleryItems[0].classList.add(`gallery__item_current`)
-  captionPaginationItems[0].classList.add(`list__item_current`) 
+  if (gellary) {
+    
+    buttonsWrapper.appendChild(playBtn);
+    buttonsWrapper.appendChild(pauseBtn);
+    gelleryInterval = setInterval(showNextImage, INTERVAL);
+    play.classList.add(`caption__button_current`);
+    captionImageName.innerText = gelleryItems[0].alt;
+    gelleryItems[0].classList.add(`gallery__item_current`)
+    captionPaginationItems[0].classList.add(`list__item_current`) 
+
 
   // add listitners on buttons
   buttonsWrapper.addEventListener(`click`, (e) => {
@@ -140,5 +140,8 @@ const timer = {
       clearInterval(gelleryInterval);
     }
   })
+
+  }
+
 
 }
