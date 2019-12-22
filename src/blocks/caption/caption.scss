@@ -1,0 +1,34 @@
+.caption__pagination {
+  margin-top: 5px;
+}
+
+.caption__pagination-item {
+  line-height: 1;
+  padding: 3px 5px;
+  // border: 1px solid black;
+}
+
+.caption__buttons-wrapper {
+  margin-top: 15px;
+  display: flex;
+}
+
+.caption__button {
+  display: block;
+  height: 8px;
+  width: 10px;
+  margin-right: 5px;
+  padding: 4px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .4;
+}
+
+.caption__button_current {
+  opacity: 1;
+}
+
+.caption__image-name {
+  height: 25px;
+}
