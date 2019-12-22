@@ -60,7 +60,7 @@ const timer = {
     const currentImage = gellary.querySelector(`.gallery__item_current`);
     const currentPagination = captionPlaceHolder.querySelector(`.list__item_current`);
     const showingImage = gellary.querySelector(`.gallery__item_showing`);
-    console.log(currentImage === showingImage)
+    // console.log(currentImage === showingImage)
     if (showingImage) {
       showingImage.classList.remove(`gallery__item_showing`)
     }
@@ -90,7 +90,7 @@ const timer = {
     } else {
       currentImageIndex += 1;
     }
-    console.log(currentImageIndex)
+    // console.log(currentImageIndex)
     changeImage(currentImageIndex)
   }
 
@@ -134,10 +134,17 @@ const timer = {
   captionPlaceHolder.addEventListener(`click`, (e) => {
     e.preventDefault();
     if (e.target.classList.contains(`caption__pagination-item`)) {
+      captionPlaceHolder.querySelector(`.list__item_current`).classList.remove(`list__item_current`)
       const targetImage = e.target.dataset.target;
-      e.target.classList.add(`list__item_current`);
-      changeImage(targetImage);
+      if (!(e.target.classList.contains(`list__item_current`))) {
+        e.target.classList.add(`list__item_current`);
+        changeImage(targetImage);
+      }
       clearInterval(gelleryInterval);
+      if (!(pauseBtn.classList.contains(`caption__button_current`))) {
+        pauseBtn.classList.add(`caption__button_current`);
+      }
+      playBtn.classList.remove(`caption__button_current`);
     }
   })
 
