@@ -1,0 +1,26 @@
+{
+  "name": "lashmanova-2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peter-nikitin/lashmanova-2020.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peter-nikitin/lashmanova-2020/issues"
+  },
+  "homepage": "https://github.com/peter-nikitin/lashmanova-2020#readme",
+  "devDependencies": {
+    "pug": "^2.0.4",
+    "sass": "^1.24.0"
+  },
+  "dependencies": {
+    "normalize.css": "8.0.1"
+  }
+}
