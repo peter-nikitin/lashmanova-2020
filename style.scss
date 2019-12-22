@@ -1,0 +1,16 @@
+@import "node_modules/normalize.css/normalize";
+@import "/src/blocks/layout/layout.scss";
+@import "/src/blocks/gallery/gallery.scss";
+@import "/src/blocks/footer/footer.scss";
+@import "/src/blocks/header/header.scss";
+@import "/src/blocks/list/list.scss";
+@import "/src/blocks/button/button.scss";
+@import "/src/blocks/caption/caption.scss";
+@import "/src/typo/typo.scss";
+* {
+  box-sizing: border-box;
+  font-family: FuturaBookC, Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
