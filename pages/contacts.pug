@@ -1,14 +1,23 @@
 extends ../src/blocks/layout/layout.pug
 
 block content
-  .contacts
-    p 
-      b Телефон:
-      | 8 (985) 921-72-60
-    p 
-      b E-mail: 
-      | lashmanovak@gmail.com
-    p https://www.facebook.com/lashmanovadesign
+  .about
+    .about__photo
+      img(src="/src/contacts/contacts.jpg", alt="", srcset="/src/contacts/contacts@2x.jpg 2x, /src/contacts/contacts@05x.jpg 0.5x" height=564)  
+    .contacts
+      p 
+        b Телефон: 
+        | 8 (985) 921-72-60
+      p 
+        b E-mail: 
+        | lashmanovak@gmail.com
+      p 
+        b Адрес: 
+        | Спиридоновка, д 4
+      p 
+        b Instagram: 
+        a(href='https://instagram.com/lashmanova_design') https://instagram.com/lashmanova_design 
+      
 
 block prepend footer 
   - var currentUrl = '/contacts'
