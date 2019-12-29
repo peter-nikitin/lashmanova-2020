@@ -134,9 +134,9 @@ const timer = {
   captionPlaceHolder.addEventListener(`click`, (e) => {
     e.preventDefault();
     if (e.target.classList.contains(`caption__pagination-item`)) {
-      captionPlaceHolder.querySelector(`.list__item_current`).classList.remove(`list__item_current`)
       const targetImage = e.target.dataset.target;
       if (!(e.target.classList.contains(`list__item_current`))) {
+        captionPlaceHolder.querySelector(`.list__item_current`).classList.remove(`list__item_current`)
         e.target.classList.add(`list__item_current`);
         changeImage(targetImage);
       }
