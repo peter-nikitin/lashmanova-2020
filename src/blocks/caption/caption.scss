@@ -11,6 +11,12 @@
 .caption__buttons-wrapper {
   margin-top: 15px;
   display: flex;
+  @media (max-width: 425px) {
+    margin-top: 5px;
+    width: 20%;
+    order: 2;
+    justify-content: flex-end;
+  }
 }
 
 .caption__button {
@@ -22,7 +28,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: .4;
+  opacity: .2;
 }
 
 .caption__button_current {
@@ -31,4 +37,17 @@
 
 .caption__image-name {
   height: 37px;
+  @media (max-width: 425px) {
+    width: 80%;
+    order: 1;
+  }
+}
+
+.caption__pagination {
+  @media (max-width: 425px) {
+    display: flex;
+    width: 100%;
+    order: 3;
+    overflow-x: auto;
+  }
 }
