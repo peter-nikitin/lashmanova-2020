@@ -1,26 +1,21 @@
 import { breakStatement } from "babel-types";
-import Desctop from "../../../origin_images/slider/desctop/*.jpg";
-import Mobile from "../../../origin_images/slider/mobile/*.jpg";
+import {descktopImages, mobileImages} from './images'; 
 
 export const makeGallery = () => {
-  const imagesDesctop = Object.values(Desctop);
-  const imagesMobile = Object.values(Mobile);
   const gellary = document.querySelector(`.gallery`);
-
+  
   if (window.innerWidth > 420) {
-    const geleryIrtem = imagesDesctop.map(item => {
+    const geleryIrtem = descktopImages.map(item => {
       gellary.insertAdjacentHTML(
         `beforeend`,
-        `<img class="gallery__item " src="${item}" alt="Апартаменты в Москве 
-      публикация AD&nbsp;2019">`
+        `<img class="gallery__item " src="${item.image}" alt="${item.alt}">`
       );
     });
   } else {
-    const geleryIrtem = imagesMobile.map(item => {
+    const geleryIrtem = mobileImages.map(item => {
       gellary.insertAdjacentHTML(
         `beforeend`,
-        `<img class="gallery__item " src="${item}" alt="Апартаменты в Москве 
-      публикация AD&nbsp;2019">`
+        `<img class="gallery__item " src="${item.image}" alt="${item.alt}">`
       );
     });
   }
@@ -100,7 +95,9 @@ export const makeGallery = () => {
     }
     gelleryItems[target].classList.add(`gallery__item_showing`);
     clearInterval(timer.timer);
+
     const transitionSpeed = speed || 350;
+
     timer.timer = setTimeout(() => {
       currentImage.classList.remove(`gallery__item_current`);
       gelleryItems[target].classList.add(`gallery__item_current`);
@@ -108,13 +105,15 @@ export const makeGallery = () => {
     }, transitionSpeed);
     captionImageName.innerText = gelleryItems[target].alt;
 
-    if (window.innerWidth > 420) {
-      captionPaginationItems[target].scrollIntoView({
-        block: "center",
-        behavior: "smooth"
-      });
-    }
-    // console.log(captionPaginationItems[target].getBoundingClientRect())
+    if (window.innerWidth < 420) {
+      if (captionPaginationItems[target].getBoundingClientRect().left > captionPagination.getBoundingClientRect().width || captionPaginationItems[target].getBoundingClientRect().left < 0) {
+
+        captionPagination.scrollTo({
+          left: captionPaginationItems[target].offsetLeft - 30,
+          behavior: "smooth"
+        }) 
+      } 
+    } 
   };
   // -------
 
@@ -125,8 +124,7 @@ export const makeGallery = () => {
       currentImageIndex = 0;
     } else {
       currentImageIndex += 1;
-    }
-    // console.log(currentImageIndex)
+    } 
     changeImage(currentImageIndex, speed);
   };
 
@@ -162,6 +160,11 @@ export const makeGallery = () => {
       e.preventDefault();
       clearInterval(gelleryInterval);
       showNextImage(100);
+      clearInterval(gelleryInterval);
+        if (!pauseBtn.classList.contains(`caption__button_current`)) {
+          pauseBtn.classList.add(`caption__button_current`);
+        }
+        playBtn.classList.remove(`caption__button_current`);
     });
 
     // add listeners on pagination
@@ -169,12 +172,13 @@ export const makeGallery = () => {
       e.preventDefault();
       if (e.target.classList.contains(`caption__pagination-item`)) {
         const targetImage = e.target.dataset.target;
+        currentImageIndex = +targetImage;
         if (!e.target.classList.contains(`list__item_current`)) {
           captionPlaceHolder
             .querySelector(`.list__item_current`)
             .classList.remove(`list__item_current`);
           e.target.classList.add(`list__item_current`);
-          changeImage(targetImage);
+          changeImage(targetImage); 
         }
         clearInterval(gelleryInterval);
         if (!pauseBtn.classList.contains(`caption__button_current`)) {
