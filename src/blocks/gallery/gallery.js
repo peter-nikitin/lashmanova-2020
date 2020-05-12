@@ -4,18 +4,18 @@ import {descktopImages, mobileImages} from './images';
 export const makeGallery = () => {
   const gellary = document.querySelector(`.gallery`);
   
-  if (window.innerWidth > 420) {
+  if (window.innerWidth > 520) {
     const geleryIrtem = descktopImages.map(item => {
       gellary.insertAdjacentHTML(
         `beforeend`,
-        `<img class="gallery__item " src="${item.image}" alt="${item.alt}">`
+        `<img class="gallery__item " src="${item.image}" alt="${item.alt[window.language]}">`
       );
     });
   } else {
     const geleryIrtem = mobileImages.map(item => {
       gellary.insertAdjacentHTML(
         `beforeend`,
-        `<img class="gallery__item " src="${item.image}" alt="${item.alt}">`
+        `<img class="gallery__item " src="${item.image}" alt="${item.alt[window.language]}">`
       );
     });
   }
