@@ -8,3 +8,4 @@ origin_images/used
 origin_images/*
 creds.txt
 dist
+.history
