@@ -1,31 +1,31 @@
-import { breakStatement } from "babel-types";
+import 'lazysizes'; 
 import {descktopImages, mobileImages} from './images'; 
 
 export const makeGallery = () => {
-  const gellary = document.querySelector(`.gallery`);
+  const gallery = document.querySelector(`.gallery`);
   
   if (window.innerWidth > 520) {
-    const geleryIrtem = descktopImages.map(item => {
-      gellary.insertAdjacentHTML(
+    const galleryItem = descktopImages.map(item => {
+      gallery.insertAdjacentHTML(
         `beforeend`,
-        `<img class="gallery__item " src="${item.image}" alt="${item.alt[window.language]}">`
+        `<img class="gallery__item lazyload" data-src="${item.image}" alt="${item.alt[window.language]}">`
       );
     });
   } else {
-    const geleryIrtem = mobileImages.map(item => {
-      gellary.insertAdjacentHTML(
+    const galleryItem = mobileImages.map(item => {
+      gallery.insertAdjacentHTML(
         `beforeend`,
-        `<img class="gallery__item " src="${item.image}" alt="${item.alt[window.language]}">`
+        `<img class="gallery__item lazyload" data-src="${item.image}" alt="${item.alt[window.language]}">`
       );
     });
   }
 
   // get all images on page
-  const gelleryItems = document.querySelectorAll(`.gallery__item`);
+  const galleryItems = document.querySelectorAll(`.gallery__item`);
   // get caption position
   const captionPlaceHolder = document.querySelector(`.footer__caption`);
   // create holder for timer
-  let gelleryInterval;
+  let galleryInterval;
 
   // interval for autoswitching
   const INTERVAL = 4000;
@@ -55,7 +55,7 @@ export const makeGallery = () => {
   pauseBtn.id = `pause`;
 
   // draw pagination
-  gelleryItems.forEach((item, i) => {
+  galleryItems.forEach((item, i) => {
     const el = document.createElement(`div`);
     el.classList.add(
       `caption__pagination-item`,
@@ -80,11 +80,11 @@ export const makeGallery = () => {
 
   // change image funciton
   const changeImage = (target, speed) => {
-    const currentImage = gellary.querySelector(`.gallery__item_current`);
+    const currentImage = gallery.querySelector(`.gallery__item_current`);
     const currentPagination = captionPlaceHolder.querySelector(
       `.list__item_current`
     );
-    const showingImage = gellary.querySelector(`.gallery__item_showing`);
+    const showingImage = gallery.querySelector(`.gallery__item_showing`);
     // console.log(currentImage === showingImage)
     if (showingImage) {
       showingImage.classList.remove(`gallery__item_showing`);
@@ -93,17 +93,17 @@ export const makeGallery = () => {
       currentPagination.classList.remove(`list__item_current`);
       captionPaginationItems[target].classList.add(`list__item_current`);
     }
-    gelleryItems[target].classList.add(`gallery__item_showing`);
+    galleryItems[target].classList.add(`gallery__item_showing`);
     clearInterval(timer.timer);
 
     const transitionSpeed = speed || 350;
 
     timer.timer = setTimeout(() => {
       currentImage.classList.remove(`gallery__item_current`);
-      gelleryItems[target].classList.add(`gallery__item_current`);
-      gelleryItems[target].classList.remove(`gallery__item_showing`);
+      galleryItems[target].classList.add(`gallery__item_current`);
+      galleryItems[target].classList.remove(`gallery__item_showing`);
     }, transitionSpeed);
-    captionImageName.innerText = gelleryItems[target].alt;
+    captionImageName.innerText = galleryItems[target].alt;
 
     if (window.innerWidth < 420) {
       if (captionPaginationItems[target].getBoundingClientRect().left > captionPagination.getBoundingClientRect().width || captionPaginationItems[target].getBoundingClientRect().left < 0) {
@@ -120,7 +120,7 @@ export const makeGallery = () => {
   let currentImageIndex = 0;
   const showNextImage = speed => {
     // if last - back to first
-    if (currentImageIndex === gelleryItems.length - 1) {
+    if (currentImageIndex === galleryItems.length - 1) {
       currentImageIndex = 0;
     } else {
       currentImageIndex += 1;
@@ -129,13 +129,13 @@ export const makeGallery = () => {
   };
 
   // start auto switching
-  if (gellary) {
+  if (gallery) {
     buttonsWrapper.appendChild(playBtn);
     buttonsWrapper.appendChild(pauseBtn);
-    gelleryInterval = setInterval(showNextImage, INTERVAL);
+    galleryInterval = setInterval(showNextImage, INTERVAL);
     play.classList.add(`caption__button_current`);
-    captionImageName.innerText = gelleryItems[0].alt;
-    gelleryItems[0].classList.add(`gallery__item_current`);
+    captionImageName.innerText = galleryItems[0].alt;
+    galleryItems[0].classList.add(`gallery__item_current`);
     captionPaginationItems[0].classList.add(`list__item_current`);
 
     // add listitners on buttons
@@ -143,24 +143,24 @@ export const makeGallery = () => {
       e.preventDefault();
       switch (e.target.id) {
         case `play`:
-          clearInterval(gelleryInterval);
-          gelleryInterval = setInterval(showNextImage, INTERVAL);
+          clearInterval(galleryInterval);
+          galleryInterval = setInterval(showNextImage, INTERVAL);
           pauseBtn.classList.toggle(`caption__button_current`);
           playBtn.classList.toggle(`caption__button_current`);
           break;
         case `pause`:
-          clearInterval(gelleryInterval);
+          clearInterval(galleryInterval);
           pauseBtn.classList.toggle(`caption__button_current`);
           playBtn.classList.toggle(`caption__button_current`);
           break;
       }
     });
 
-    gellary.addEventListener(`click`, e => {
+    gallery.addEventListener(`click`, e => {
       e.preventDefault();
-      clearInterval(gelleryInterval);
+      clearInterval(galleryInterval);
       showNextImage(100);
-      clearInterval(gelleryInterval);
+      clearInterval(galleryInterval);
         if (!pauseBtn.classList.contains(`caption__button_current`)) {
           pauseBtn.classList.add(`caption__button_current`);
         }
@@ -180,7 +180,7 @@ export const makeGallery = () => {
           e.target.classList.add(`list__item_current`);
           changeImage(targetImage); 
         }
-        clearInterval(gelleryInterval);
+        clearInterval(galleryInterval);
         if (!pauseBtn.classList.contains(`caption__button_current`)) {
           pauseBtn.classList.add(`caption__button_current`);
         }
