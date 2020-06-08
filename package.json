@@ -20,7 +20,6 @@
   "homepage": "https://github.com/peter-nikitin/lashmanova-2020#readme",
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
-    "parcel-plugin-imagemin": "^4.0.1",
     "pug": "^2.0.4",
     "sass": "^1.26.5"
   },
