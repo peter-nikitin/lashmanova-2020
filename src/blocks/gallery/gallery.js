@@ -1,6 +1,8 @@
-import "lazysizes";
+import lazySizes from "lazysizes";
 
 import projectImages from "./projects";
+
+lazySizes.cfg.preloadAfterLoad = true;
 
 export const makeGallery = () => {
   const gallery = document.querySelector(`.gallery`);
