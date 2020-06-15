@@ -2,7 +2,7 @@
   display: flex;
   padding: 20px 0;
   flex-direction: column;
-  @media (min-width: 425px) {
+  @media (min-width: 520px) {
     flex-direction: row;
   }
 }
@@ -11,7 +11,7 @@
   display: flex;
   flex-wrap: wrap;
   order: 2;
-  @media (min-width: 425px) {
+  @media (min-width: 520px) {
     order: 1;
   }
 }
@@ -19,7 +19,7 @@
 .footer__right {
   order: 1;
   margin-bottom: 40px;
-  @media (min-width: 425px) {
+  @media (min-width: 520px) {
     order: 2;
   }
 }
@@ -32,7 +32,7 @@
 .footer__logo {
   width: 100%;
   margin-bottom: 20px;
-  @media (min-width: 425px) {
+  @media (min-width: 520px) {
     width: 180px;
   }
   margin-right: 20px;
@@ -48,7 +48,7 @@
 
 .footer__caption {
   width: 260px;
-  @media (max-width: 425px) {
+  @media (max-width: 520px) {
     display: flex;
     justify-content: space-between;
     width: 100%;

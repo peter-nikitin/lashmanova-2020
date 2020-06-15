@@ -11,7 +11,7 @@
 .caption__buttons-wrapper {
   margin-top: 15px;
   display: flex;
-  @media (max-width: 425px) {
+  @media (max-width: 520px) {
     margin-top: 5px;
     width: 20%;
     order: 2;
@@ -28,7 +28,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: .2;
+  opacity: 0.2;
 }
 
 .caption__button_current {
@@ -37,14 +37,14 @@
 
 .caption__image-name {
   height: 37px;
-  @media (max-width: 425px) {
+  @media (max-width: 520px) {
     width: 80%;
     order: 1;
   }
 }
 
 .caption__pagination {
-  @media (max-width: 425px) {
+  @media (max-width: 520px) {
     display: flex;
     width: 100%;
     order: 3;
