@@ -1,24 +1,41 @@
-import 'lazysizes'; 
-import {descktopImages, mobileImages} from './images'; 
+import "lazysizes";
+
+import projectImages from "./projects";
 
 export const makeGallery = () => {
   const gallery = document.querySelector(`.gallery`);
-  
-  if (window.innerWidth > 520) {
-    const galleryItem = descktopImages.map(item => {
-      gallery.insertAdjacentHTML(
-        `beforeend`,
-        `<img class="gallery__item lazyload" data-src="${item.image}" alt="${item.alt[window.language]}">`
-      );
-    });
-  } else {
-    const galleryItem = mobileImages.map(item => {
-      gallery.insertAdjacentHTML(
-        `beforeend`,
-        `<img class="gallery__item lazyload" data-src="${item.image}" alt="${item.alt[window.language]}">`
-      );
-    });
-  }
+
+  projectImages.map((project) => {
+    if (window.innerWidth > 520) {
+      project.desktopImages.map((image) => {
+        gallery.insertAdjacentHTML(
+          `beforeend`,
+          `<img 
+              class="gallery__item lazyload" 
+              src="${image.low}" 
+              data-src="${image.full}" 
+              sizes="(max-width: 1000px) 90vw, 90vw"
+              data-srcset="${image.half} 990w,  ${image.full} 1980w"
+              alt="${project.alt[window.language]}"
+            >`
+        );
+      });
+    } else {
+      project.mobileImages.map((image) => {
+        gallery.insertAdjacentHTML(
+          `beforeend`,
+          `<img 
+              class="gallery__item lazyload" 
+              src="${image.low}" 
+              data-src="${image.full}" 
+              sizes="(max-width: 500px) 90vw, 90vw"
+              data-srcset="${image.half} 330w,  ${image.full} 660w"
+              alt="${project.alt[window.language]}"
+            >`
+        );
+      });
+    }
+  });
 
   // get all images on page
   const galleryItems = document.querySelectorAll(`.gallery__item`);
@@ -75,17 +92,17 @@ export const makeGallery = () => {
   // --------
 
   const timer = {
-    timer: null
+    timer: null,
   };
 
-  // change image funciton
+  // change image function
   const changeImage = (target, speed) => {
     const currentImage = gallery.querySelector(`.gallery__item_current`);
     const currentPagination = captionPlaceHolder.querySelector(
       `.list__item_current`
     );
     const showingImage = gallery.querySelector(`.gallery__item_showing`);
-    // console.log(currentImage === showingImage)
+
     if (showingImage) {
       showingImage.classList.remove(`gallery__item_showing`);
     }
@@ -105,26 +122,37 @@ export const makeGallery = () => {
     }, transitionSpeed);
     captionImageName.innerText = galleryItems[target].alt;
 
-    if (window.innerWidth < 420) {
-      if (captionPaginationItems[target].getBoundingClientRect().left > captionPagination.getBoundingClientRect().width || captionPaginationItems[target].getBoundingClientRect().left < 0) {
-
+    if (window.innerWidth < 520) {
+      if (
+        captionPaginationItems[target].getBoundingClientRect().left >
+          captionPagination.getBoundingClientRect().width ||
+        captionPaginationItems[target].getBoundingClientRect().left < 0
+      ) {
         captionPagination.scrollTo({
           left: captionPaginationItems[target].offsetLeft - 30,
-          behavior: "smooth"
-        }) 
-      } 
-    } 
+          behavior: "smooth",
+        });
+      }
+    }
   };
   // -------
 
   let currentImageIndex = 0;
-  const showNextImage = speed => {
+  const showNextImage = (speed) => {
     // if last - back to first
     if (currentImageIndex === galleryItems.length - 1) {
       currentImageIndex = 0;
     } else {
       currentImageIndex += 1;
-    } 
+    }
+    changeImage(currentImageIndex, speed);
+  };
+
+  const showPrevImage = (speed) => {
+    // if first - nothing
+    if (currentImageIndex !== 0) {
+      currentImageIndex -= 1;
+    }
     changeImage(currentImageIndex, speed);
   };
 
@@ -138,8 +166,8 @@ export const makeGallery = () => {
     galleryItems[0].classList.add(`gallery__item_current`);
     captionPaginationItems[0].classList.add(`list__item_current`);
 
-    // add listitners on buttons
-    buttonsWrapper.addEventListener(`click`, e => {
+    // add listeners on buttons
+    buttonsWrapper.addEventListener(`click`, (e) => {
       e.preventDefault();
       switch (e.target.id) {
         case `play`:
@@ -156,19 +184,26 @@ export const makeGallery = () => {
       }
     });
 
-    gallery.addEventListener(`click`, e => {
+    gallery.addEventListener(`click`, (e) => {
       e.preventDefault();
+      const container = gallery.getBoundingClientRect();
+      const third = container.width / 3;
+      const clickX = e.clientX - container.left;
+      console.log(container);
+      if (clickX <= third) {
+        showPrevImage(100);
+      } else {
+        showNextImage(100);
+      }
       clearInterval(galleryInterval);
-      showNextImage(100);
-      clearInterval(galleryInterval);
-        if (!pauseBtn.classList.contains(`caption__button_current`)) {
-          pauseBtn.classList.add(`caption__button_current`);
-        }
-        playBtn.classList.remove(`caption__button_current`);
+      if (!pauseBtn.classList.contains(`caption__button_current`)) {
+        pauseBtn.classList.add(`caption__button_current`);
+      }
+      playBtn.classList.remove(`caption__button_current`);
     });
 
     // add listeners on pagination
-    captionPlaceHolder.addEventListener(`click`, e => {
+    captionPlaceHolder.addEventListener(`click`, (e) => {
       e.preventDefault();
       if (e.target.classList.contains(`caption__pagination-item`)) {
         const targetImage = e.target.dataset.target;
@@ -178,7 +213,7 @@ export const makeGallery = () => {
             .querySelector(`.list__item_current`)
             .classList.remove(`list__item_current`);
           e.target.classList.add(`list__item_current`);
-          changeImage(targetImage); 
+          changeImage(targetImage);
         }
         clearInterval(galleryInterval);
         if (!pauseBtn.classList.contains(`caption__button_current`)) {
